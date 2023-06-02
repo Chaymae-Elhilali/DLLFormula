@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import os
 
+import remove_doubles
+
 SAVING_FRAMES_PER_SECOND = 10
 
 def format_timedelta(td):
@@ -71,6 +73,7 @@ def main(video_file):
         count += 1
 
     cap.release()
+    remove_doubles.remove_doubles(filename)
 
 if __name__ == "__main__":
     import sys
