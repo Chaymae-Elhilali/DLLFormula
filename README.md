@@ -10,3 +10,6 @@
 
 #After the execution of the above command, a new folder "NameOfTheVideo-opencv" is created where you can find all the frames
 #Pour télécharger vidéo dll: afficher le code source du cadre, ouvrir le lien vimeo et utiliser l'extension professional video downloader
+
+
+Now it's all ready we just need to take the directory to the frames and add it to the testing phase dataset as a source
