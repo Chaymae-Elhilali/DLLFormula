@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
 import os
+import sys
 
 def file_hash(filename):
     with open(filename, 'rb') as f:
@@ -12,7 +13,7 @@ def file_hash(filename):
 def remove_doubles(filename):
     os.getcwd()
     filename = sys.argv[1]
-    directory = '/content/{}-opencv'.format(filename)
+    directory = '/content/opencv-{}'.format(os.path.splitext(filename)[0])
     os.chdir(directory)
     os.getcwd()
 
