@@ -9,7 +9,7 @@ def file_hash(filename):
     with open(filename, 'rb') as f:
         return hashlib.md5(f.read()).hexdigest()
 
-def remove_doubles(filename)
+def remove_doubles(filename):
     os.getcwd()
     filename = sys.argv[1]
     directory = '/content/{}-opencv'.format(filename)
