@@ -13,4 +13,19 @@
 
 Now wer're done with the video to distinct frames part, let's now give our data the yolov8
 
+# DETECTION
 Now it's all ready we just need to take the directory to the frames and add it to the testing phase dataset as a source
+
+YOLOv8 may be used directly in the Command Line Interface (CLI) with a yolo command:
+
+yolo predict model=yolov8n.pt source='https://ultralytics.com/images/bus.jpg'
+
+yolo can be used for a variety of tasks and modes and accepts additional arguments, i.e. imgsz=640. See the YOLOv8 CLI Docs for examples.
+
+# CONVERSION
+
+# ACKNOLEDGMENT:
+code modified from:
+-video to frames
+- ocr latex converter
+-pre-pretreatment

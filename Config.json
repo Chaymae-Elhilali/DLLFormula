@@ -1,0 +1,16 @@
+
+
+{
+    
+    "src": "https://mathpix-ocr-examples.s3.amazonaws.com/ cases_hw.jpg",
+    
+    "formats": ["text", "data"],
+    
+    "data_options": {
+    
+    "include_asciimath": true
+    
+    }
+    
+}
+    
