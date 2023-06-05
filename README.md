@@ -9,6 +9,7 @@
 !python3 extract_frames.py Arithmtique.mp4 #name_of_the_video
 
 #After the execution of the above command, a new folder "opencv-NameOfTheVideo" is created where you can find all the frames
+
 #Pour télécharger vidéo dll: afficher le code source du cadre, ouvrir le lien vimeo et utiliser l'extension professional video downloader
 
 Now wer're done with the video to distinct frames part, let's now give our data the yolov8
@@ -26,6 +27,9 @@ yolo can be used for a variety of tasks and modes and accepts additional argumen
 
 # ACKNOLEDGMENT:
 code modified from:
+
 -video to frames
+
 - ocr latex converter
+
 -pre-pretreatment
