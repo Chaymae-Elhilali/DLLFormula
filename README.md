@@ -49,6 +49,6 @@ code modified from:
 
 - video to frames
 
-- ocr latex converter
+- ocr latex converter: pix2tex - LaTeX OCR
 
 - pre-pretreatment
