@@ -44,7 +44,7 @@ yolo can be used for a variety of tasks and modes and accepts additional argumen
 ### Usage
 
 You can use YOLOv8 for object detection tasks using the Ultralytics pip package. The following is a sample code snippet showing how to use YOLOv8 models for inference:
-'''
+ ```
 from ultralytics import YOLO
 
 # Load the model
@@ -55,7 +55,7 @@ results = model('image.jpg')
 
 # Print the results
 results.print()
-'''
+ ```
 
 # CONVERSION
 
