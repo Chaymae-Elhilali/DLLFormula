@@ -41,6 +41,21 @@ yolo predict model=yolov8n.pt source='https://media.roboflow.com/notebooks/examp
 ```
 
 yolo can be used for a variety of tasks and modes and accepts additional arguments, i.e. imgsz=640. See the YOLOv8 CLI Docs for examples.
+### Usage
+
+You can use YOLOv8 for object detection tasks using the Ultralytics pip package. The following is a sample code snippet showing how to use YOLOv8 models for inference:
+'''
+from ultralytics import YOLO
+
+# Load the model
+model = YOLO('yolov8n.pt')  # load a pretrained model
+
+# Perform inference
+results = model('image.jpg')
+
+# Print the results
+results.print()
+'''
 
 # CONVERSION
 
