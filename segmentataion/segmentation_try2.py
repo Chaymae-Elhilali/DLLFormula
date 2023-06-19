@@ -25,8 +25,21 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
         frame = cv2.imread(frame_path)
 
         # Get the bounding box data for the current frame
-        with open(chemin_labels, 'r') as bbox_file:
+        # Get the bounding box data for the current frame
+        with open(bbox_path, 'r') as bbox_file:
             bbox_data = bbox_file.readlines()
+
+        # Iterate over each bounding box
+        for i, bbox_line in enumerate(bbox_data):
+            try:
+                # Parse the bounding box data
+                class_label, mean_x, mean_y, mean_width, mean_height = map(float, bbox_line.strip().split())
+
+                # Rest of the code for cropping and saving images
+
+            except ValueError:
+                print(f"Error parsing line {i+1} in the bounding box file: {bbox_line}")
+
 
         # Iterate over each bounding box
         for i, bbox_line in enumerate(bbox_data):
@@ -34,10 +47,10 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
             class_label, mean_x, mean_y, mean_width, mean_height = map(float, bbox_line.strip().split())
 
             # Calculate the top-left and bottom-right coordinates of the bounding box
-            x1 = int(mean_x - mean_width / 2)
-            y1 = int(mean_y - mean_height / 2)
-            x2 = int(mean_x + mean_width / 2)
-            y2 = int(mean_y + mean_height / 2)
+            x1 = int(mean_x - (mean_width / 2))
+            y1 = int(mean_y - (mean_height / 2))
+            x2 = int(mean_x + (mean_width / 2))
+            y2 = int(mean_y + (mean_height / 2))
 
             # Crop the bounding box region from the frame
             cropped = frame[y1:y2, x1:x2]
@@ -48,7 +61,10 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
         , output_filename)
 
             # Save the cropped image
-            cv2.imwrite(output_path, cropped)
+            if cropped.shape[0] > 0 and cropped.shape[1] > 0:
+              cv2.imwrite(output_path, cropped)
+
+
 
         print(f"Cropped images for {frame_file} saved.")
 
@@ -59,7 +75,8 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
 chemin_img = "/content/datasets/Formula-detector-7/test/images"
 chemin_labels = "/content/datasets/Formula-detector-7/test/labels"
 chemin_boxes = "/content/datasets/Formula-detector-7/test/boxes"
-os.makedirs(chemin_boxes)
+os.makedirs(chemin_boxes, exist_ok=True)
+
 
 # Call the function to save cropped images
 save_cropped_images(chemin_img, chemin_labels, chemin_boxes)
