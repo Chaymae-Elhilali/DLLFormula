@@ -23,21 +23,23 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
 
         # Load the frame image
         frame = cv2.imread(frame_path)
-
+        H, W, _ = frame.shape
         # Get the bounding box data for the current frame
         # Get the bounding box data for the current frame
         with open(bbox_path, 'r') as bbox_file:
             bbox_data = bbox_file.readlines()
-
+            # print(bbox_data)
         # Iterate over each bounding box
         for i, bbox_line in enumerate(bbox_data):
             try:
+
                 # Parse the bounding box data
                 class_label, mean_x, mean_y, mean_width, mean_height = map(float, bbox_line.strip().split())
 
                 # Rest of the code for cropping and saving images
 
             except ValueError:
+
                 print(f"Error parsing line {i+1} in the bounding box file: {bbox_line}")
 
 
@@ -47,14 +49,16 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
             class_label, mean_x, mean_y, mean_width, mean_height = map(float, bbox_line.strip().split())
 
             # Calculate the top-left and bottom-right coordinates of the bounding box
-            x1 = int(mean_x - (mean_width / 2))
-            y1 = int(mean_y - (mean_height / 2))
-            x2 = int(mean_x + (mean_width / 2))
-            y2 = int(mean_y + (mean_height / 2))
+            x1 = int((mean_x - (mean_width / 2)) * W)
+            y1 = int((mean_y - (mean_height / 2)) * H)
+            x2 = int((mean_x + (mean_width / 2)) * W)
+            y2 = int((mean_y + (mean_height / 2)) * H)
 
+        
+            # print(x1,x2,y1,y2)
             # Crop the bounding box region from the frame
             cropped = frame[y1:y2, x1:x2]
-
+            # print("cropped",cropped)
             # Generate the output filename
             output_filename = f"{os.path.splitext(frame_file)[0]}_{i}.jpg"
             output_path = os.path.join(chemin_boxes
@@ -72,9 +76,9 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
 
 
 # Specify the paths
-chemin_img = "/content/datasets/Formula-detector-7/test/images"
-chemin_labels = "/content/datasets/Formula-detector-7/test/labels"
-chemin_boxes = "/content/datasets/Formula-detector-7/test/boxes"
+chemin_img = "test/test/images"
+chemin_labels = "test/test/labels"
+chemin_boxes = "test/test/boxes"
 os.makedirs(chemin_boxes, exist_ok=True)
 
 
