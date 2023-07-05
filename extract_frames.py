@@ -34,10 +34,12 @@ def get_saving_frames_durations(cap, saving_fps):
     return s
 
 def main(video_file):
-    filename, _ = os.path.splitext(video_file)
-    filename += "-opencv"
-    if not os.path.isdir(filename):
-        os.mkdir(filename)
+    filename, _ = os.path.splitext(os.path.basename(video_file))
+    filename += "-opencv" 
+
+    output_directory = os.path.join(os.path.dirname(video_file), "output_frames", filename)
+    if not os.path.isdir(output_directory):
+        os.makedirs(output_directory)
 
     cap = cv2.VideoCapture(video_file)
     if not cap.isOpened():
@@ -49,6 +51,7 @@ def main(video_file):
     saving_frames_durations = get_saving_frames_durations(cap, saving_frames_per_second)
 
     count = 0
+    retain_every_n_frames = 25
     while True:
         is_read, frame = cap.read()
         if not is_read:
@@ -64,6 +67,8 @@ def main(video_file):
 
         if frame_duration >= closest_duration:
             frame_duration_formatted = format_timedelta(timedelta(seconds=frame_duration))
+            # Uncomment the following line to retain one image in every 25 frames
+            # if count % retain_every_n_frames == 0:
             cv2.imwrite(os.path.join(filename, f"frame{frame_duration_formatted}.jpg"), frame)
             try:
                 saving_frames_durations.pop(0)
