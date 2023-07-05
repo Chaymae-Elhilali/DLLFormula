@@ -72,7 +72,9 @@ def main(video_file):
             frame_duration_formatted = format_timedelta(timedelta(seconds=frame_duration))
             # Uncomment the following line to retain one image in every 25 frames
             if count % retain_every_n_frames == 0:
-                cv2.imwrite(os.path.join(filename, f"frame{frame_duration_formatted}.jpg"), frame)
+                cv2.imwrite(os.path.join(output_directory, f"frame{frame_duration_formatted}.jpg"), frame)
+
+                #cv2.imwrite(os.path.join(filename, f"frame{frame_duration_formatted}.jpg"), frame)
             try:
                 saving_frames_durations.pop(0)
             except IndexError:
