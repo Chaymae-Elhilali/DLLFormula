@@ -1,0 +1,58 @@
+import os
+import shutil
+
+# ... (previous code)
+
+def main(video_file):
+    filename, _ = os.path.splitext(os.path.basename(video_file))
+    filename += "-opencv"
+
+    output_directory = os.path.join(os.path.dirname(video_file), "output_frames", filename)
+    if not os.path.isdir(output_directory):
+        os.makedirs(output_directory)
+
+    cap = cv2.VideoCapture(video_file)
+    if not cap.isOpened():
+        print("Error opening video file:", video_file)
+        return
+
+    count = 0
+    retain_every_n_frames = 25  # Set this value to retain one image in every 25 frames
+    while True:
+        is_read, frame = cap.read()
+        if not is_read:
+            break
+
+        frame_duration = count / fps
+        frame2 = frame
+
+        try:
+            closest_duration = saving_frames_durations[0]
+        except IndexError:
+            break
+
+        if frame_duration >= closest_duration:
+            frame_duration_formatted = format_timedelta(timedelta(seconds=frame_duration))
+            # Uncomment the following part to retain one image in every 25 frames
+            # if count % retain_every_n_frames == 0:
+            frame_path = os.path.join(output_directory, f"frame{frame_duration_formatted}.jpg")
+            cv2.imwrite(frame_path, frame)
+            try:
+                saving_frames_durations.pop(0)
+            except IndexError:
+                pass
+
+        count += 1
+
+    cap.release()
+
+    # Call remove_doubles function with the correct directory path
+    remove_doubles(output_directory)
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) < 2:
+        print("Please provide a video file as an argument.")
+    else:
+        video_file = sys.argv[1]
+        main(video_file)
