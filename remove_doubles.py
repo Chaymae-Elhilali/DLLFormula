@@ -13,7 +13,9 @@ def file_hash(filename):
 def remove_doubles(filename):
     os.getcwd()
     filename = sys.argv[1]
-    directory = '/content/DLLFormula/data/output_frames/{}'.format(os.path.splitext(os.path.basename(filename))[0])
+    directory = os.path.join(os.getcwd(), "data", "output_frames", os.path.splitext(os.path.basename(filename))[0])
+    #the past line replaces the next line in case we're working locally not on colab
+    #directory = '/content/DLLFormula/data/output_frames/{}'.format(os.path.splitext(os.path.basename(filename))[0])
     os.chdir(directory)
     os.getcwd()
 

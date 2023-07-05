@@ -35,9 +35,12 @@ def get_saving_frames_durations(cap, saving_fps):
 
 def main(video_file):
     filename, _ = os.path.splitext(os.path.basename(video_file))
-    filename += "-opencv" 
+    print("filename is", filename)
+    #filename += "-opencv" 
+    print("the new filename is", filename)
 
     output_directory = os.path.join(os.path.dirname(video_file), "output_frames", filename)
+    print("output_directory is", output_directory)
     if not os.path.isdir(output_directory):
         os.makedirs(output_directory)
 
@@ -68,8 +71,8 @@ def main(video_file):
         if frame_duration >= closest_duration:
             frame_duration_formatted = format_timedelta(timedelta(seconds=frame_duration))
             # Uncomment the following line to retain one image in every 25 frames
-            # if count % retain_every_n_frames == 0:
-            cv2.imwrite(os.path.join(filename, f"frame{frame_duration_formatted}.jpg"), frame)
+            if count % retain_every_n_frames == 0:
+                cv2.imwrite(os.path.join(filename, f"frame{frame_duration_formatted}.jpg"), frame)
             try:
                 saving_frames_durations.pop(0)
             except IndexError:
