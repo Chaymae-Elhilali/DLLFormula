@@ -13,7 +13,7 @@ def file_hash(filename):
 def remove_doubles(filename):
     os.getcwd()
     filename = sys.argv[1]
-    directory = '/content/opencv-{}'.format(os.path.splitext(filename)[0])
+    directory = '/content/DLLFormula/data/output_frames/{}'.format(os.path.splitext(os.path.basename(filename))[0])
     os.chdir(directory)
     os.getcwd()
 
