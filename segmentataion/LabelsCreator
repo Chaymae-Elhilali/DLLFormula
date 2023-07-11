@@ -35,4 +35,11 @@ for filename in os.listdir(folder_path):
       class_label = prediction['class']
                 
       label_file.write(f"{class_label} {x} {y} {width} {height}\n")
+  
+  filename1 = os.path.splitext(filename)[0] + ".txt"
+  with open(filename1) as o:
+      for line in filename1:
+          #strip() function
+          if line.strip():
+              o.write(line)
 
