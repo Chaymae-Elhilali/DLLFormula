@@ -2,6 +2,7 @@
 #It includes detection so no need to use yolov8 command
 
 import os
+import sys
 from roboflow import Roboflow
 rf = Roboflow(api_key="6JdS3fk367XrDxgtvhiS")
 project = rf.workspace().project("formula-detector-egybi")
