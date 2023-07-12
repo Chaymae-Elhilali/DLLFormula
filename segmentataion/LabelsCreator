@@ -36,10 +36,20 @@ for filename in os.listdir(folder_path):
                 
       label_file.write(f"{class_label} {x} {y} {width} {height}\n")
   
-  filename1 = os.path.splitext(filename)[0] + ".txt"
-  with open(filename1) as o:
-      for line in filename1:
-          #strip() function
-          if line.strip():
-              o.write(line)
 
+def process_last_line(path):
+    """input : path containing ur text files"""
+    list_paths=[file for file in os.listdir(path) if file.endswith('.txt')]
+    for filename in list_paths:
+        
+        with open(path+"/"+filename, 'r+') as fp:
+            # read an store all lines into list
+            lines = fp.readlines()
+            lines[-1]=lines[-1].replace('\n','')
+
+            fp.seek(0)
+            fp.truncate()
+
+            fp.writelines(lines)
+            
+process_last_line(labels_folder_path)
