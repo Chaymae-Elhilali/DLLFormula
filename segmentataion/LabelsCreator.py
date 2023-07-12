@@ -1,4 +1,4 @@
-#this code creates the folder with all the label files
+.p#this code creates the folder with all the label files
 #It includes detection so no need to use yolov8 command
 
 import os
