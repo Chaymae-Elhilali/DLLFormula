@@ -74,11 +74,11 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
 
     print("All frames processed.")
 
-
+#TO DO CHANGE THIS + AUTOMATE IT +ATTENTION EQ_LABELS
 # Specify the paths
-chemin_img = "test/test/images"
-chemin_labels = "test/test/labels"
-chemin_boxes = "test/test/boxes"
+chemin_img = "test/test/images"    /content/DLLFormula/data/output_frames/EQ
+chemin_labels = "test/test/labels"   /content/DLLFormula/datasets/runs/detect/EQ #EQ_labels
+chemin_boxes = "test/test/boxes"    /content/DLLFormula/datasets/runs/boxes/EQ
 os.makedirs(chemin_boxes, exist_ok=True)
 
 
