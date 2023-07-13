@@ -71,7 +71,10 @@ The segmentation part consists of:
 
 -obtaining images of furmula by cutting frames thanks to the label files
 
-# CONVERSION
+# CONVERSION :
+
+Latex OCR using pix2tex for the conversion of formula to latex format
+
 
 # ACKNOLEDGMENT:
 
