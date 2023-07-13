@@ -2,6 +2,7 @@
 
 import os
 import cv2
+import sys
 
 def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
     # Create the output directory if it doesn't exist
@@ -34,8 +35,9 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
             try:
 
                 # Parse the bounding box data
-                class_label, mean_x, mean_y, mean_width, mean_height = map(float, bbox_line.strip().split())
-
+                bbox_values = bbox_line.strip().split()
+                class_label = bbox_values[0]
+                mean_x, mean_y, mean_width, mean_height = map(float, bbox_values[1:])
                 # Rest of the code for cropping and saving images
 
             except ValueError:
@@ -45,8 +47,13 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
 
         # Iterate over each bounding box
         for i, bbox_line in enumerate(bbox_data):
+
+
             # Parse the bounding box data
-            class_label, mean_x, mean_y, mean_width, mean_height = map(float, bbox_line.strip().split())
+            bbox_values = bbox_line.strip().split()
+            class_label = bbox_values[0]
+            mean_x, mean_y, mean_width, mean_height = map(float, bbox_values[1:])
+
 
             # Calculate the top-left and bottom-right coordinates of the bounding box
             x1 = int((mean_x - (mean_width / 2)) * W)
@@ -67,18 +74,21 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
             # Save the cropped image
             if cropped.shape[0] > 0 and cropped.shape[1] > 0:
               cv2.imwrite(output_path, cropped)
-
+        
 
 
         print(f"Cropped images for {frame_file} saved.")
 
     print("All frames processed.")
 
-#TO DO CHANGE THIS + AUTOMATE IT +ATTENTION EQ_LABELS
-# Specify the paths
-chemin_img = "test/test/images"    /content/DLLFormula/data/output_frames/EQ
-chemin_labels = "test/test/labels"   /content/DLLFormula/datasets/runs/detect/EQ #EQ_labels
-chemin_boxes = "test/test/boxes"    /content/DLLFormula/datasets/runs/boxes/EQ
+if len(sys.argv) != 2:
+    print("Usage: python3 label.py <folderName>")
+    sys.exit(1)
+
+folder_name = sys.argv[1]
+chemin_img = os.path.join("/content/DLLFormula/data/output_frames", folder_name)
+chemin_labels = os.path.join("/content/DLLFormula/datasets/runs/detect/", folder_name + "_labels")
+chemin_boxes = os.path.join("/content/DLLFormula/datasets/runs/boxes/", folder_name)
 os.makedirs(chemin_boxes, exist_ok=True)
 
 
