@@ -56,17 +56,17 @@ results = model('image.jpg')
 # Print the results
 results.print()
  ```
+# SEGMENTATION
+The segmentation part consists of:
+-creating label files containing coordina of formula
+-obtaining images of furmula by cutting frames thanks to the label files 
 
 # CONVERSION
 
 # ACKNOLEDGMENT:
-code modified from:
+Pieces of code used from:
 
-- video to frames
-
-- ocr latex converter: pix2tex - LaTeX OCR
-
-- pre-pretreatment
+- Extract Frames from Video : https://github.com/x4nth055/pythoncode-tutorials/tree/master/python-for-multimedia/extract-frames-from-video
 
 - detection: @software{yolov8_ultralytics,
   author       = {Glenn Jocher and Ayush Chaurasia and Jing Qiu},
@@ -77,3 +77,5 @@ code modified from:
   orcid        = {0000-0001-5950-6979, 0000-0002-7603-6750, 0000-0003-3783-7069},
   license      = {AGPL-3.0}
 }
+
+- ocr latex converter: pix2tex - LaTeX OCR
