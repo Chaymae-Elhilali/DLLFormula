@@ -25,7 +25,7 @@ stretched = stretched.astype(np.uint8)
 cv2.imwrite('stretched.jpg', stretched)
 
 # TODO: maybe change the followong because
-'''
+
  #EROSION, DILATATION AND CONTOURS MAKE THE IMAGE WORSE 
 # ----------------------------------- erosion and dilation of images-------------------------------
 
@@ -63,4 +63,3 @@ cv2.drawContours(image=image_copy, contours=contours, contourIdx=-1, color=(0, 2
 
 cv2.imwrite('contours_none_image1.jpg', image_copy)
 cv2.destroyAllWindows()
-'''
