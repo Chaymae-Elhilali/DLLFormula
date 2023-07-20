@@ -37,10 +37,10 @@ def save_cropped_images(chemin_img, chemin_labels, chemin_boxes):
                 mean_x, mean_y, mean_width, mean_height = map(float, bbox_values[1:])
 
                 # Calculate the top-left and bottom-right coordinates of the bounding box
-                x1 = int((mean_x - (mean_width / 2)) * W)
-                y1 = int((mean_y - (mean_height / 2)) * H)
-                x2 = int((mean_x + (mean_width / 2)) * W)
-                y2 = int((mean_y + (mean_height / 2)) * H)
+                x1 = int((mean_x - (mean_width / 2)) )
+                y1 = int((mean_y - (mean_height / 2)) )
+                x2 = int((mean_x + (mean_width / 2)) )
+                y2 = int((mean_y + (mean_height / 2)) )
 
                 # Crop the bounding box region from the frame
                 cropped = frame[y1:y2, x1:x2]
