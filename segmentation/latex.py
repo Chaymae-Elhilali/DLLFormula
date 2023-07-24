@@ -1,10 +1,11 @@
-import os
 from PIL import Image
 import sys
 from pix2tex import cli as pix2tex
 model = pix2tex.LatexOCR()
 from IPython.display import display, HTML
 import math
+import os, requests
+
 
 
 if len(sys.argv) != 2:
@@ -29,6 +30,20 @@ display(HTML("<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/
              "latest.js?config=default'></script>"))
 table = r'\begin{array} {l|l} %s  \end{array}'
 
+def formula_as_file(formula, file, negate=False):
+    '''render the latex formula ( for visual validation) '''
+    ##https://jamesgregson.blogspot.com/2013/06/latex-formulas-as-images-using-python.html
+    tfile = file
+    if negate:
+        tfile = 'tmp.png'
+    r = requests.get('http://latex.codecogs.com/png.latex?\dpi{300} \Large	 %s' % formula)
+    f = open(tfile, 'wb')
+    f.write(r.content)
+    f.close()
+    if negate:
+        os.system('convert tmp.png -channel RGB -negate -colorspace rgb %s' % file)
+
+
 folder_name = sys.argv[1]
 
 image_folder = os.path.join('/content/DLLFormula/datasets/runs/boxes',folder_name)  # chemin vers dossier d'images
@@ -42,6 +57,7 @@ for image_file in image_files:
     img = Image.open(image_path)
     math = model(img)
     print(math)
+    formula_as_file(math, image_file + ".png")
     predictions.append('\\mathrm{%s} & \\displaystyle{%s}' % (image_file, math))
 
 
