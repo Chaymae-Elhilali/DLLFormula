@@ -19,18 +19,55 @@ try:
         print('formula saved as file')
 except:
         print("can't save as file")
+        
+import os
+import sys
+from PIL import Image
+from pix2tex import cli as pix2tex
+from sympy import latex
+from IPython.display import display, HTML, Math
 
-# Render LaTeX formulas and save them as images
+# Your model initialization and other code here...
+
+# Your folder_name and other code here...
+
+predictions = []
+
+# Function to preprocess LaTeX formula before saving it
+def preprocess_latex(latex_code):
+    # Replace Unicode characters with LaTeX representations
+    latex_code = latex_code.replace('→', r'\longrightarrow')
+    return latex_code
+
+# Function to render LaTeX formula and save it as plain text
+def latex_to_file(formula, file):
+    display(Math(formula))
+    with open(file, "w") as f:
+        f.write(formula)
+
+# Render LaTeX formulas and store them as plain text
 for image_file in image_files:
     image_path = os.path.join(image_folder, image_file)
     print(image_path)
     img = Image.open(image_path)
-    math = model(img)
-    print(math)
-    formula_as_file(math, image_file + ".png")
+    latex_code = model(img)
+    print(latex_code)
+    
+    # Preprocess the LaTeX formula before saving it
+    latex_code = preprocess_latex(latex_code)
+    
+    predictions.append('\\mathrm{%s} & \\displaystyle{%s}' % (image_file, latex_code))
+    
+    # Convert the LaTeX formula to plain text and save it
+    latex_to_file(latex_code, image_file + ".txt")
 
-# Display the images with LaTeX formulas
-for image_file in image_files:
-    image_path = os.path.join(image_folder, image_file + ".png")
-    img = Image.open(image_path)
-    display(img)
+# Generate LaTeX table code
+table = r'\begin{array} {l|l} %s \end{array}'
+latex_table_code = table % '\\\\'.join(predictions)
+
+# Display the LaTeX table code as LaTeX
+display(Math(latex_table_code))
+
+# Save the LaTeX table code to a file
+output_file = "output_formulas.tex"
+
